@@ -24,6 +24,10 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
 @app.post("/todos/", response_model=schemas.TodoResponse)
 def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     db_todo = models.Todo(**todo.dict())
